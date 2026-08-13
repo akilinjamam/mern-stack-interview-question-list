@@ -178,6 +178,36 @@ monitorServers();
 // "Result for srv-prod-01: Status is ONLINE"
 // "Result for srv-auth-03: Status is OFFLINE"
 
-
-
 ```
+
+5. What is `this` and how does it behave differently in regular functions vs arrow functions?
+
+n JavaScript, this is a special keyword that references the object executing the current function. Its value depends entirely on context. Regular functions define this dynamically based on how they are called, while arrow functions inherit this lexically from their surrounding scope
+
+6. Explain the event loop, call stack, microtask queue, and macrotask queue.
+
+The JavaScript runtime handles synchronous and asynchronous execution using four distinct components: the Call Stack handles current synchronous work, the Microtask Queue and Macrotask Queue hold scheduled asynchronous tasks, and the Event Loop orchestrates them or event loop pushes that tasks from queue to the call stack when it empty
+
+1.The Call Stack: A tracking mechanism that manages function execution contexts.
+Rule: Follows the Last-In, First-Out (LIFO) model.
+Behavior: When a function is called, it drops onto the top of the stack. When it finishes executing, it pops off.
+Limitation: It can only handle one job at a time. Heavy or infinite loops block the stack, locking up the program.
+
+2.The Microtask QueueDefinition: A high-priority staging line for immediate asynchronous updates.Triggers: Populated primarily by Promise.then() callbacks, await execution steps, and queueMicrotask().Priority: Strictly processed ahead of the macrotask queue.Drain Rule: The engine must execute every single item in this queue before it can look anywhere else. If a microtask schedules another microtask, it will also run in the same cycle
+
+2.The Microtask Queue
+Definition: A high-priority staging line for immediate asynchronous updates.
+Triggers: Populated primarily by Promise.then() callbacks, await execution steps, and queueMicrotask().
+Priority: Strictly processed ahead of the macrotask queue.
+Drain Rule: The engine must execute every single item in this queue before it can look anywhere else. If a microtask schedules another microtask, it will also run in the same cycle
+
+3.The Macrotask Queue (or Task Queue)
+Definition: A lower-priority line for heavier background operations.
+Triggers: Populated by setTimeout(), setInterval(), user interactions (like clicks), network requests, and I/O tasks.
+Rule: Processed on a standard First-In, First-Out (FIFO) basis.
+Execution Rule: The engine executes only one macrotask per cycle. After finishing one macrotask, it steps away to check on the microtasks.
+
+4.The Event Loop
+Definition: An endless background process running inside the runtime.
+Job: Monitors whether the Call Stack is empty.
+Action: If the stack is clear, it pushes tasks from the queues into the stack to execute them
