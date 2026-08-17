@@ -193,7 +193,6 @@ Rule: Follows the Last-In, First-Out (LIFO) model.
 Behavior: When a function is called, it drops onto the top of the stack. When it finishes executing, it pops off.
 Limitation: It can only handle one job at a time. Heavy or infinite loops block the stack, locking up the program.
 
-2.The Microtask QueueDefinition: A high-priority staging line for immediate asynchronous updates.Triggers: Populated primarily by Promise.then() callbacks, await execution steps, and queueMicrotask().Priority: Strictly processed ahead of the macrotask queue.Drain Rule: The engine must execute every single item in this queue before it can look anywhere else. If a microtask schedules another microtask, it will also run in the same cycle
 
 2.The Microtask Queue
 Definition: A high-priority staging line for immediate asynchronous updates.
