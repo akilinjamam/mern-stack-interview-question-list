@@ -165,3 +165,72 @@ const result = sum(5);
 console.log(result)
 
 ```
+
+12. Explain debounce vs throttle. When would you use each?
+
+Debounce waits until the events stop happening, then invokes the function once.
+
+```
+function debounce(fn, delay) {
+  let timer;
+
+  return (...args) => {
+    clearTimeout(timer);
+
+    timer = setTimeout(() => {
+      fn(...args);
+    }, delay);
+  };
+}
+
+const search = debounce((query) => {
+  console.log("API request:", query);
+}, 500);
+
+```
+
+Throttle allows the function to run at most once within a specific time period.
+
+```
+function throttle(fn, delay) {
+  let lastRun = 0;
+
+  return (...args) => {
+    const now = Date.now();
+
+    if (now - lastRun >= delay) {
+      lastRun = now;
+      fn(...args);
+    }
+  };
+}
+
+const handleScroll = throttle(() => {
+  console.log("Scrolling...");
+}, 200);
+
+```
+
+13. What is currying?
+    Currying is a functional programming technique where a function that takes multiple arguments is transformed into a sequence of functions, each taking one argument at a time.
+
+```
+
+function curringFunction(a) {
+    return function (b) {
+        return a * b
+    }
+};
+
+// const result = curringFunction(5);
+console.log(curringFunction(8)(5));
+
+```
+
+Explain `map`, `filter`, `reduce` — implement one from scratch.
+
+map() that Transform every element and return New array
+
+filter() which Keep elements that satisfy a condition and return New array
+
+reduce() is a combination of all elements into one result that return single value

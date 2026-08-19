@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Throttle Example</title>
+
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    .header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      padding: 20px;
+      background: #222;
+      color: white;
+      text-align: center;
+    }
+
+    .content {
+      height: 2000px;
+      padding: 100px 30px;
+    }
+
+    #result {
+      position: fixed;
+      top: 80px;
+      left: 20px;
+      padding: 10px;
+      background: lightblue;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="header">
+    Scroll the page
+  </div>
+
+  <div id="result">
+    Scroll events: 0
+  </div>
+
+  <div class="content">
+    <h1>Throttle Example</h1>
+    <p>
+      Scroll down the page and open the browser console.
+    </p>
+  </div>
+
+  <script>
+
+    function throttle(fn, delay) {
+      let lastRun = 0;
+
+      return (...args) => {
+
+        const now = Date.now();
+
+        if (now - lastRun >= delay) {
+
+          lastRun = now;
+          document.getElementById('result').textContent = `Scroll events: ${lastRun}`
+
+          fn(...args);
+        }
+      };
+    }
+
+
+    // Function that we want to control
+    const handleScroll = throttle(() => {
+
+      console.log("Scrolling...");
+
+    }, 2000);
+
+
+    // Listen for scroll events
+    window.addEventListener("scroll", handleScroll);
+
+  </script>
+
+</body>
+</html>
