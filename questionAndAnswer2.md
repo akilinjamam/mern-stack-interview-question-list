@@ -234,3 +234,98 @@ map() that Transform every element and return New array
 filter() which Keep elements that satisfy a condition and return New array
 
 reduce() is a combination of all elements into one result that return single value
+
+15. What is event delegation, event bubbling and event propagation?
+
+Event delegation is a JavaScript design pattern where you attach a single event listener to a parent element to manage events for all of its current and future child elements. Instead of adding separate listeners to every individual child, this technique leverages event bubbling, a process where an event triggered on a child element automatically travels (bubbles) up the DOM tree to its ancestors.
+
+```
+// HTML Structure:
+// <ul id="parent-list">
+//   <li class="item">Item 1</li>
+//   <li class="item">Item 2</li>
+// </ul>
+
+const parentList = document.getElementById('parent-list');
+
+// Attach ONE listener to the parent container
+parentList.addEventListener('click', (event) => {
+    // Target the specific element that was clicked
+    const clickedElement = event.target;
+
+    // Filter out clicks that didn't happen on an item we care about
+    if (clickedElement.classList.contains('item')) {
+        console.log(`Clicked on: ${clickedElement.textContent}`);
+    }
+});
+
+
+
+```
+
+Event propagation is the mechanism that defines how an event travels through the Document Object Model (DOM) tree to execute event handlers when an interaction occurs. When you click an element nested inside other elements, the event does not just trigger on that single item; it travels through all of its ancestors
+
+```
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <style>
+        #div1 {
+            background-color: lightgreen;
+            padding: 24px;
+            border: 1px solid black;
+        }
+
+        #div2 {
+            background-color: yellow;
+            padding: 18px;
+            border: 1px solid black;
+
+        }
+
+        #div3 {
+            background-color: orange;
+            border: 1px solid black;
+        }
+    </style>
+</head>
+
+<body>
+    <h1 style="color: green">GeeksForGeeks</h1>
+    <h3>What is Event propagation, capturing, bubbling?</h3>
+
+    <div id="div1">
+        Component 1
+        <div id="div2">
+            component 2
+            <div id="div3">
+                component 3
+            </div>
+        </div>
+    </div>
+
+    <!-- Javascript code for event bubbling -->
+    <script>
+        let div1 = document.querySelector("#div1");
+        let div2 = document.querySelector("#div2");
+        let div3 = document.querySelector("#div3");
+
+        div1.addEventListener("click", function (event) {
+            alert("Component 1 event clicked");
+        });
+
+        div2.addEventListener("click", function (event) {
+            alert("Component 2 event clicked");
+        });
+
+        div3.addEventListener("click", function (event) {
+            alert("Component 3 event clicked");
+        });
+    </script>
+</body>
+
+</html>
+
+```
